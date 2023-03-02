@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora</title>
+</head>
+<body>
+    <header><h1>Calculadora para Documentação</h1></header>
+
+    <main>
+        <section id="inputDados">
+            <table>
+                <tr>
+                    <td>Compra e venda</td>
+                    <td><input type="number" name="compraEVenda" id="compraEVenda" placeholder="Digite o valor"></td>
+                </tr>
+
+                <tr>
+                    <td>Financiamento</td>
+                    <td><input type="number" name="Financiamento" id="financiamento" placeholder="Digite o valor"></td>
+                </tr>
+
+                <tr>
+                    <td>Selecione o Banco</td>
+                    <td>
+                        <select name="banco" id="selectBanco">
+                            <option value="null">Selecione</option>
+                            <option value="bancoBrasil">Banco do Brasil</option>
+                            <option value="caixa">Caixa</option>
+                            <option value="itau">Itaú</option>
+                       </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Selecione a Cidade</td>
+                    <td>
+                        <select name="cidade" id="selectCidade">
+                            <option value="null">Selecione</option>
+                            <option value="campinas">Campinas</option>
+                            <option value="guarulhos">Guarulhos</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr id="enquadramento" class="display-none">
+                    <td>Selecione o Enquadramento</td>
+                    <td>
+                        <select name="enquadramento" id="selectEnquadramento">
+                            <option value="null">Selecione</option>
+                            <option value="proCotista">PRO COTISTA</option>
+                            <option value="mcmv">MCMV</option>
+                            <option value="sbpe">SBPE</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+            <button id="botaoCalcular">Calcular</button>
+        </section>
+
+        <section id="outputDados">
+            
+        </section>
+
+        <script src="script.js"></script>
+</body>
+</html>

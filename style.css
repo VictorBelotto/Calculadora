@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  header {
+    text-align: center;
+    padding: 1rem;
+    background-color: #222;
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #222;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: #444;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+ 
+  input[type="number"] {
+    width: 100%;
+    background-color: #333333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  input[type="number"]::placeholder {
+    color: #bbbbbb;
+  }
+
+  #botaoCalcular {
+    background-color: #0077CC;
+    color: white;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#botaoCalcular:hover {
+    background-color: #005EA8;
+}
+
+#botaoCalcular:active {
+    animation: clickEffect 0.4s ease-out;
+}
+
+@keyframes clickEffect {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+  #outputDados {
+    margin-top: 1rem;
+    background-color: #444;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    display: none;
+  }
+
+  #outputDados h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  #outputDados p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #outputDados table {
+    margin-top: 1rem;
+  }
+
+ .display-none{
+  display: none;
+ } 
+
+  @media screen and (max-width: 767px) {
+    main {
+      padding: 0.5rem;
+    }
+
+    select {
+      font-size: 0.9rem;
+    }
+}
