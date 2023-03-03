@@ -5,7 +5,9 @@ const selectCidade = document.querySelector("#selectCidade")
 const selectEnquadramento = document.querySelector("#selectEnquadramento")
 const botaoCalcular = document.querySelector("#botaoCalcular")
 const outputDados = document.querySelector("#outputDados")
+const select = document.querySelectorAll(".select")
 
+let modificaDinheiroReal = (valor) => { return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); }
 const enquadramento = document.querySelector("#enquadramento")
 
 class limiteMCMV {
@@ -39,6 +41,12 @@ class taxasCalculadas {
 
 
 
+
+select.forEach( (elemento)=>{
+    elemento.addEventListener('change', ()=>{
+        console.log(elemento.value)
+    })
+})
 
 botaoCalcular.addEventListener('click', () => {
     const dado = new dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value)
@@ -117,8 +125,6 @@ function calculaRelacionamento(enquadramento, dado, taxa){
 }
 
 function exibeTaxas(taxa){
-    let modificaDinheiroReal = (valor) => { return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); }
-
     
     console.log(modificaDinheiroReal(taxa.cartorio))
     console.log(modificaDinheiroReal(taxa.itbi))
