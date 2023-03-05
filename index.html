@@ -15,12 +15,12 @@
             <table>
                 <tr>
                     <td>Compra e venda</td>
-                    <td><input type="number" name="compraEVenda" id="compraEVenda" placeholder="Digite o valor"></td>
+                    <td><input type="number" name="compraEVenda" id="compraEVenda" autofocus placeholder="Digite o valor" class="select"></td>
                 </tr>
 
                 <tr>
                     <td>Financiamento</td>
-                    <td><input type="number" name="Financiamento" id="financiamento" placeholder="Digite o valor"></td>
+                    <td><input type="number" name="Financiamento" id="financiamento" placeholder="Digite o valor" class="select"></td>
                 </tr>
 
                 <tr>
@@ -46,7 +46,7 @@
                     </td>
                 </tr>
 
-                <tr id="enquadramento" class="">
+                <tr id="enquadramento" class="display-none">
                     <td>Selecione o Enquadramento</td>
                     <td>
                         <select class="select" name="enquadramento" id="selectEnquadramento">
@@ -63,10 +63,9 @@
             <button id="botaoCalcular">Calcular</button>
         </section>
 
-        <section id="outputDados">
-            
+        <section id="outputDados" class="display-none">
         </section>
 
-        <script src="script.js"></script>
+        <script type="module" src="script.js"></script>
 </body>
 </html>

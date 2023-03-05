@@ -106,29 +106,18 @@
     }
 }
 
-  #outputDados {
+  #outputDados{
     margin-top: 1rem;
     background-color: #444;
     padding: 1rem;
     border-radius: 0.25rem;
-    display: none;
+    
   }
 
-  #outputDados h2 {
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-  }
+ 
 
-  #outputDados p {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  #outputDados table {
-    margin-top: 1rem;
-  }
-
+ 
+ 
  .display-none{
   display: none;
  } 

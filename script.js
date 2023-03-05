@@ -1,3 +1,5 @@
+import {dados, taxasCalculadas} from './taxas.classe.js';
+
 const compraEVenda = document.querySelector("#compraEVenda")
 const financiamento = document.querySelector("#financiamento")
 const selectBanco = document.querySelector("#selectBanco")
@@ -7,46 +9,39 @@ const botaoCalcular = document.querySelector("#botaoCalcular")
 const outputDados = document.querySelector("#outputDados")
 const select = document.querySelectorAll(".select")
 
-let modificaDinheiroReal = (valor) => { return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); }
 const enquadramento = document.querySelector("#enquadramento")
 
-class limiteMCMV {
-    campinas = 264000
-    guarulhos = 264000
-}
-
-class dados {
-    compra
-    financiamento
-    banco
-    cidade
-    enquadramento
-    
-    constructor(compra, financiamento, banco, cidade, enquadramento) {
-        this.compra = compra
-        this.financiamento = financiamento
-        this.banco = banco
-        this.cidade = cidade
-        this.enquadramento = enquadramento
-    } 
-}
-
-class taxasCalculadas {
-    cartorio
-    itbi 
-    vistoria
-    relacionamento
-    
-}
 
 
 
 
 select.forEach( (elemento)=>{
     elemento.addEventListener('change', ()=>{
-        console.log(elemento.value)
+        console.log(elemento.id)
+
+        if(elemento.id == "selectBanco"){
+            if(elemento.value == "caixa"){
+                enquadramento.classList.remove("display-none")
+            }else{
+                enquadramento.classList.add("display-none")
+            }
+        }
+
+        else if(elemento.id == "selectEnquadramento"){
+            if(elemento.value == "mcmv"){
+                if(compraEVenda.valueAsNumber > limiteMCMV.campinas || compraEVenda.valueAsNumber > limiteMCMV.guarulhos ){
+                    erro()
+                }
+            }
+
+        }
     })
 })
+
+
+function erro(){
+    console.log("Compra e venda fora do valor maximo")
+}
 
 botaoCalcular.addEventListener('click', () => {
     const dado = new dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value)
@@ -121,22 +116,35 @@ function calculaRelacionamento(enquadramento, dado, taxa){
             taxa.relacionamento = 850
         }
     }
-
 }
 
 function exibeTaxas(taxa){
+    let modificaDinheiroReal = (valor) => { return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); }
+    outputDados.firstChild.remove()
+    outputDados.classList.remove("display-none")
     
-    console.log(modificaDinheiroReal(taxa.cartorio))
-    console.log(modificaDinheiroReal(taxa.itbi))
-    console.log(modificaDinheiroReal(taxa.vistoria))
-    console.log(modificaDinheiroReal(taxa.relacionamento))
-   
+    let ul = document.createElement("ul")
+    ul.classList.add("lista")
+    outputDados.appendChild(ul)
+    
+    createLi(`Valor do Cartorio: ${modificaDinheiroReal(taxa.cartorio)}`)
+    createLi(`Valor do ITBI: ${modificaDinheiroReal(taxa.itbi)}`)
+    createLi(`Valor do Vistoria: ${modificaDinheiroReal(taxa.vistoria)}`)
+
+    if(taxa.relacionamento != null){
+        createLi(`Valor do Relacionamento: ${modificaDinheiroReal(taxa.relacionamento)}`)
+    }
+    
+}
+
+function createLi(resultado){
+
+    let li = document.createElement("li")
+    li.textContent = resultado
+    outputDados.querySelector(".lista").appendChild(li)
 }
 
 
-function trocaDisplay(referencia){
-    referencia.classList.toggle("display-none")
-}
 
 
 
