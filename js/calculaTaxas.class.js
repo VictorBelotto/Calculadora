@@ -1,3 +1,4 @@
+
 export function calculaCartorio(dado, taxa){
     const referenciaCompra = [34260.01, 102780.01, 171300.01, 205560.01, 239820.01, 274080.01, 308340.01, 342600.01, 685200.01, 1027800.01, 1370400.01, 1713000.01, 2055600.01, Infinity]
     const referenciaValor = [1699.18, 1894.28, 2326.54, 2731.51, 2946.72 , 3163.38 ,3325.82 , 3541.74, 4638.21, 5441.15, 6244.06, 6659.19, 8734.85]
@@ -9,39 +10,37 @@ export function calculaCartorio(dado, taxa){
         }
     }
 }
-export function calculaItbi(dado, taxa){
-    dado.recursosProprios = (dado.compra - dado.financiamento)
 
-        if(dado.cidade == "campinas"){
-            taxa.itbi = dado.compra * 0.027
-        }
-            else if(dado.cidade == "guarulhos"){
-                taxa.itbi = (dado.financiamento * 0.005) + (dado.recursosProprios * 0.02)
-            }  
-}
 
-export function calculaTaxaAvista(dado, taxa){
-    if(dado.banco == "bancoBrasil"){
-        taxa.vistoria = 1370
+
+export class taxaAvista {
+    static bancoBrasil = 1370
+    static itau = 1950
+    static caixa = {
+        fgts: 0.015,
+        sbpe: 1000
     }
-        else if(dado.banco == "itau"){
-            taxa.vistoria = 1950            
+
+   static calculaTaxaAvista(banco, dado, taxa){
+        if(!banco == "caixa"){
+            taxa.vistoria = this[banco]
         }
-            else if(dado.banco == "caixa"){
+            else{
 
                 if(dado.enquadramento == "mcmv" || dado.enquadramento == "proCotista"){
-                    taxa.vistoria = dado.financiamento * 0.015
+                    taxa.vistoria = dado.financiamento * this.caixa.fgts
                     calculaRelacionamento("fgts", dado, taxa)
                 }   
                     else if(dado.enquadramento == "sbpe"){
-                        taxa.vistoria = 1000
+                        taxa.vistoria = this.caixa.sbpe
                         calculaRelacionamento("sbpe", dado, taxa)
                     }
-                            
             }
+    }
+
 }
 
-export function calculaRelacionamento(enquadramento, dado, taxa){
+function calculaRelacionamento(enquadramento, dado, taxa){
     if(dado.cidade == "campinas"){
         if(enquadramento == "fgts"){
             taxa.relacionamento = 1500

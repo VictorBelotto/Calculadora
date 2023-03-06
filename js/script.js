@@ -1,5 +1,5 @@
-import {dados, taxasCalculadas} from './taxas.class.js';
-import { calculaCartorio, calculaItbi, calculaTaxaAvista } from './calculaTaxas.class.js';
+import {dados, taxas, itbi} from './taxas.class.js';
+import { calculaCartorio, taxaAvista } from './calculaTaxas.class.js';
 import { exibeResultado } from './exibeResultado.class.js';
 import { limiteMCMV } from './erro.class.js';
 
@@ -48,11 +48,11 @@ select.forEach( (elemento)=>{
 
 botaoCalcular.addEventListener('click', () => {
     const dado = new dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value)
-    const taxa = new taxasCalculadas()
+    const taxa = new taxas()
    
     calculaCartorio(dado, taxa)
-    calculaItbi(dado, taxa)
-    calculaTaxaAvista(dado, taxa)
+    itbi.calculaItbi(dado, taxa)
+    taxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
 
     exibeResultado(taxa)
 
