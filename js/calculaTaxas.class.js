@@ -13,11 +13,12 @@ export function calculaCartorio(dado, taxa){
 
 
 
-export class taxaAvista {
+export class TaxaAvista {
     static bancoBrasil = 1370
     static itau = 1950
     static caixa = {
-        fgts: 0.015,
+        mcmv: 0.015,
+        proCotista: 0.015,
         sbpe: 1000
     }
 
@@ -26,34 +27,49 @@ export class taxaAvista {
             taxa.vistoria = this[banco]
         }
             else{
+                let enquadramento = dado.enquadramento
 
-                if(dado.enquadramento == "mcmv" || dado.enquadramento == "proCotista"){
-                    taxa.vistoria = dado.financiamento * this.caixa.fgts
-                    calculaRelacionamento("fgts", dado, taxa)
+                if(enquadramento != "sbpe"){
+                    taxa.vistoria = dado.financiamento * this.caixa[enquadramento]
+                    console.log(this.caixa[enquadramento])
+                    RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
                 }   
-                    else if(dado.enquadramento == "sbpe"){
+                    else {
                         taxa.vistoria = this.caixa.sbpe
-                        calculaRelacionamento("sbpe", dado, taxa)
+                        RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
                     }
             }
     }
 
 }
 
-function calculaRelacionamento(enquadramento, dado, taxa){
-    if(dado.cidade == "campinas"){
-        if(enquadramento == "fgts"){
-            taxa.relacionamento = 1500
-        } else if(enquadramento == "sbpe"){
-            taxa.relacionamento = 2000
-        }
+
+
+class RelacionamentoAgencia{
+
+   static agencias = {
+
+     conceicao: {
+        mcmv: 1500,
+        proCotista: 1500,
+        sbpe: 2000
+    },
+
+     bonsucesso: {
+        fgts: 500,
+        proCotista: 500,
+        sbpe: 850
     }
 
-    else if(dado.cidade == "guarulhos"){
-        if(enquadramento == "fgts"){
-            taxa.relacionamento = 500
-        } else if(enquadramento == "sbpe"){
-            taxa.relacionamento = 850
-        }
     }
+   
+    static calculaRelacionamento( dado, taxa){
+        let agencia = dado.agencia
+        let enquadramento = dado.enquadramento
+        console.log(agencia, enquadramento)
+        taxa.relacionamento = this.agencias[agencia][enquadramento]
+    }
+    
 }
+
+
