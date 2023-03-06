@@ -1,5 +1,5 @@
-import {Dados, Taxas, Itbi} from './taxas.class.js';
-import { calculaCartorio, TaxaAvista } from './calculaTaxas.class.js';
+import {Dados, Taxas} from './taxas.class.js';
+import { calculaCartorio, TaxaAvista,  Itbi } from './calculaTaxas.class.js';
 import { exibeResultado } from './exibeResultado.class.js';
 import { limiteMCMV } from './erro.class.js';
 
