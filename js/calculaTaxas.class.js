@@ -5,7 +5,6 @@ export function calculaCartorio(dado, taxa){
     
     for(let i = 0; i < referenciaCompra.length - 1; i++){
         if(dado.compra > referenciaCompra[i]  &&  dado.compra < referenciaCompra[i + 1]){
-            console.log("Ref" + i)
             return taxa.cartorio = referenciaValor[i]
         }
     }
@@ -46,24 +45,23 @@ export class TaxaAvista {
     }
 
    static calculaTaxaAvista(banco, dado, taxa){
-        if(!banco == "caixa"){
-            taxa.vistoria = this[banco]
+        if(banco == "caixa"){
+            let enquadramento = dado.enquadramento
+
+            if(enquadramento != "sbpe"){
+                    taxa.vistoria = dado.financiamento * this.caixa[enquadramento]
+                    RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
+            }   
+                else if(enquadramento == "sbpe") {
+                    taxa.vistoria = this.caixa.sbpe
+                    RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
+                     }
         }
             else{
-                let enquadramento = dado.enquadramento
-
-                if(enquadramento != "sbpe"){
-                    taxa.vistoria = dado.financiamento * this.caixa[enquadramento]
-                    console.log(this.caixa[enquadramento])
-                    RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
-                }   
-                    else {
-                        taxa.vistoria = this.caixa.sbpe
-                        RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
-                    }
+            taxa.vistoria = this[banco]
             }
     }
-
+    
 }
 
 
@@ -79,7 +77,7 @@ class RelacionamentoAgencia{
     },
 
      bonsucesso: {
-        fgts: 500,
+        mcmv: 500,
         proCotista: 500,
         sbpe: 850
     }
@@ -89,7 +87,6 @@ class RelacionamentoAgencia{
     static calculaRelacionamento( dado, taxa){
         let agencia = dado.agencia
         let enquadramento = dado.enquadramento
-        console.log(agencia, enquadramento)
         taxa.relacionamento = this.agencias[agencia][enquadramento]
     }
     

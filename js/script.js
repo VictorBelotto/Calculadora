@@ -1,27 +1,29 @@
-import {Dados, Taxas} from './taxas.class.js';
+import {Dados, Taxas} from './referencias.class.js';
 import { calculaCartorio, TaxaAvista,  Itbi } from './calculaTaxas.class.js';
 import { exibeResultado } from './exibeResultado.class.js';
-import { limiteMCMV } from './erro.class.js';
+import { limites } from './erro.class.js';
 
+export function $(dom) {
+    return document.querySelector(dom)
+}
 
-
-const compraEVenda = document.querySelector("#compraEVenda")
-const financiamento = document.querySelector("#financiamento")
-const selectBanco = document.querySelector("#selectBanco")
-const selectCidade = document.querySelector("#selectCidade")
-const selectEnquadramento = document.querySelector("#selectEnquadramento")
-const selectAgencia = document.querySelector("#selectAgencia")
-const botaoCalcular = document.querySelector("#botaoCalcular")
-const outputDados = document.querySelector("#outputDados")
+const compraEVenda = $("#compraEVenda")
+const financiamento = $("#financiamento")
+const selectBanco = $("#selectBanco")
+const selectCidade = $("#selectCidade")
+const selectEnquadramento = $("#selectEnquadramento")
+const selectAgencia = $("#selectAgencia")
 const select = document.querySelectorAll(".select")
-const enquadramento = document.querySelector("#enquadramento")
+const enquadramento = $("#enquadramento")
 const agencia = document.querySelector("#agencia")
-
 
 
 select.forEach( (elemento)=>{
     elemento.addEventListener('change', ()=>{
        
+        if(elemento.id == "compraEVenda"){
+            limites.limiteCompra.verifica(compraEVenda.value)
+        }
 
         if(elemento.id == "selectBanco"){
             if(elemento.value == "caixa"){
@@ -33,11 +35,9 @@ select.forEach( (elemento)=>{
             }
         }
 
-        else if(elemento.id == "selectEnquadramento" || elemento.id == "compraEVenda" || elemento.id == "selectCidade"){
-            console.log(elemento.id)
+         if(elemento.id == "selectEnquadramento" || elemento.id == "compraEVenda" || elemento.id == "selectCidade"){
             if(selectEnquadramento.value == "mcmv"){
-                let limite = new limiteMCMV()
-                limite.verificaLimiteMcmv(compraEVenda.valueAsNumber, selectCidade.value)
+                limites.limiteMCMV.verifica(compraEVenda.valueAsNumber, selectCidade.value)
             }
 
         }
@@ -47,11 +47,10 @@ select.forEach( (elemento)=>{
 
 
 /* Funcao principal*/
-
-botaoCalcular.addEventListener('click', () => {
+$("#botaoCalcular").addEventListener('click', () =>{
     const dado = new Dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value, selectAgencia.value)
     const taxa = new Taxas()
-    console.log(dado, taxa)
+
     calculaCartorio(dado, taxa)
     Itbi.calculaItbi(dado, taxa)
     TaxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
@@ -59,7 +58,9 @@ botaoCalcular.addEventListener('click', () => {
     exibeResultado(taxa)
 
     
-})
+});
+
+
 
 
 
