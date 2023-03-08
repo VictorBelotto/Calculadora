@@ -15,7 +15,7 @@ const selectEnquadramento = $("#selectEnquadramento")
 const selectAgencia = $("#selectAgencia")
 const select = document.querySelectorAll(".select")
 const enquadramento = $("#enquadramento")
-const agencia = document.querySelector("#agencia")
+const agencia = $("#agencia")
 
 
 select.forEach( (elemento)=>{
