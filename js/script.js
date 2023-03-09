@@ -22,7 +22,11 @@ select.forEach( (elemento)=>{
     elemento.addEventListener('change', ()=>{
        
         if(elemento.id == "compraEVenda"){
-            limites.limiteCompra.verifica(compraEVenda.value)
+            limites.limiteCompra.verifica(compraEVenda.valueAsNumber)
+        }
+
+        if(elemento.id == "financiamento"){
+            limites.limiteFinanciamento.verifica(compraEVenda.valueAsNumber, financiamento.valueAsNumber)
         }
 
         if(elemento.id == "selectBanco"){
