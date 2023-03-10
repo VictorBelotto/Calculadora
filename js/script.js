@@ -1,4 +1,4 @@
-import {Dados, Taxas} from './referencias.class.js';
+import {Dados, Taxas, camposValidados} from './referencias.class.js';
 import { calculaCartorio, TaxaAvista,  Itbi } from './calculaTaxas.class.js';
 import { exibeResultado } from './exibeResultado.class.js';
 import { limites } from './erro.class.js';
@@ -16,13 +16,21 @@ const selectAgencia = $("#selectAgencia")
 const select = document.querySelectorAll(".select")
 const enquadramento = $("#enquadramento")
 const agencia = $("#agencia")
+const botaoCalcular = $("#botaoCalcular")
+
 
 
 select.forEach( (elemento)=>{
     elemento.addEventListener('change', ()=>{
        
         if(elemento.id == "compraEVenda"){
-            limites.limiteCompra.verifica(compraEVenda.valueAsNumber)
+            try {
+                limites.limiteCompra.verifica(compraEVenda.valueAsNumber)
+                camposValidados.compra = true
+            } catch (error) {
+                console.log(error)
+                camposValidados.compra = false
+            }
         }
 
         if(elemento.id == "financiamento"){
@@ -51,7 +59,7 @@ select.forEach( (elemento)=>{
 
 
 /* Funcao principal*/
-$("#botaoCalcular").addEventListener('click', () =>{
+botaoCalcular.addEventListener('click', () =>{
     const dado = new Dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value, selectAgencia.value)
     const taxa = new Taxas()
 
@@ -63,9 +71,6 @@ $("#botaoCalcular").addEventListener('click', () =>{
 
     
 });
-
-
-
 
 
 

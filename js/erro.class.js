@@ -14,6 +14,7 @@ export class limites {
       static erro() {
         throw new Error(`valor menor`);
       }
+
     };
 
     static limiteFinanciamento = class{
@@ -29,8 +30,6 @@ export class limites {
     }
 
      
-
-    
 
     static limiteMCMV = class {
         static campinas = 264000

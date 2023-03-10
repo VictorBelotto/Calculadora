@@ -27,8 +27,7 @@ export class Itbi {
                 taxa.itbi = (dado.financiamento * 0.005) + (dado.recursosProprios * 0.02)
                 break;
             // Adicione outros casos para outras cidades aqui...
-            default:
-                throw new Error(`Cidade desconhecida: ${dado.cidade}`)
+
         }
     }
 }

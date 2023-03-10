@@ -1,10 +1,10 @@
 export  class Dados {
-    compra
-    financiamento
-    banco
-    cidade
-    enquadramento
-    agencia
+    static compra
+    static financiamento
+    static banco
+    static cidade
+    static enquadramento
+    static agencia
     
     constructor(compra, financiamento, banco, cidade, enquadramento, agencia) {
         this.compra = compra
@@ -23,6 +23,17 @@ export class Taxas {
     vistoria
     relacionamento
 }
+
+
+export const camposValidados = {
+    compra: false,
+    financiamento: false,
+    banco: false,
+    cidade: false,
+    enquadramento: false,
+    agencia: false
+  }
+
 
 
 
