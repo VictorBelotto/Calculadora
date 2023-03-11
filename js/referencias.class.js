@@ -25,14 +25,7 @@ export class Taxas {
 }
 
 
-export const camposValidados = {
-    compra: false,
-    financiamento: false,
-    banco: false,
-    cidade: false,
-    enquadramento: false,
-    agencia: false
-  }
+
 
 
 

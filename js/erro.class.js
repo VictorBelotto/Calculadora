@@ -25,7 +25,11 @@ export class limites {
     static  verifica(compra,financiamento){
         let limite = compra * this.limitePadrao
         
-        financiamento <= limite ? console.log("Certo") :console.log(`Maior que: ${limite}`)
+        financiamento <= limite ? console.log("Certo") : this.erro(limite)
+      }
+
+      static erro(limite){
+        throw new Error(`Maior que: ${limite}`)
       }
     }
 
@@ -44,6 +48,35 @@ export class limites {
     };
 }
 
+
+export class camposValidados  {
+  static  compra =  false
+  static  financiamento =  false
+  static  banco =  false
+  static  cidade =  false
+  static  enquadramento =  false
+  static  agencia =  false
+
+
+
+  static verifica(){
+      const valoresValidos = Object.values(camposValidados);
+      if (valoresValidos.every(valor => valor)) {
+          console.log("Todos os campos estão validados.");
+        } else {
+          const camposInvalidos = [];
+          for (let i = 0; i < valoresValidos.length; i++) {
+            if (!valoresValidos[i]) {              
+              camposInvalidos.push(Object.keys(camposValidados)[i]);
+            }
+          }
+          console.log(`Os campos '${camposInvalidos.join("', '")}' não foram validados.`);
+        }
+
+  }
+
+
+}
   
   
   
