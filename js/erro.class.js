@@ -18,10 +18,16 @@ export class camposValidados  {
       this[campo] = false
     }
 
+    static validaCampoSelect(campo){
+      campo.value == 'null'? camposValidados.desvalida(campo.name) : camposValidados.valida(campo.name) 
+
+    }
+
       static verifica(){
           const valoresValidos = Object.values(camposValidados);
           if (valoresValidos.every(valor => valor)) {
               console.log("Todos os campos estão validados.");
+              return true
             } else {
               const camposInvalidos = [];
               for (let i = 0; i < valoresValidos.length; i++) {
@@ -29,7 +35,8 @@ export class camposValidados  {
                   camposInvalidos.push(Object.keys(camposValidados)[i]);
                 }
               }
-              console.log(`Os campos '${camposInvalidos.join("', '")}' não foram validados.`);
+              console.log(`Os campos (${camposInvalidos.join("), (")}) não foram validados.`);
+              return false
             }
 
       }
@@ -71,14 +78,26 @@ static limiteMCMV = class {
     static campinas = 264000
     static guarulhos = 264000
 
-    static verifica(compraVenda, cidade){
-      compraVenda > this[cidade] ? this.erroMcmv(cidade) : camposValidados.valida('enquadramento')
+    static verifica(enquadramento, compraVenda, cidade){
+      if(enquadramento == "mcmv"){
+        compraVenda > this[cidade] ? this.erroMcmv(cidade) : camposValidados.valida('enquadramento')
+      }
+     
     }
     
     static  erroMcmv(cidade){
       camposValidados.desvalida('enquadramento')
       throw new Error(`Compra e venda maximo da cidade de: ${cidade.toUpperCase()} é : ${modificaDinheiroReal(this[cidade])}`)
     }
+
+
+  static callBack(enquadramento, compraVenda, cidade){
+    try {
+      limites.limiteMCMV.verifica(enquadramento, compraVenda , cidade)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 };
 }
 

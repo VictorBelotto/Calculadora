@@ -1,9 +1,8 @@
-import { $ } from "./script.js";
 
 export function modificaDinheiroReal(valor) { 
     return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); 
 }
-const outputDados = $("#outputDados")
+const outputDados = document.querySelector("#outputDados")
 
 export function exibeResultado(taxa){
    outputDados.firstChild.remove()

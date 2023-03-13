@@ -3,113 +3,74 @@ import { calculaCartorio, TaxaAvista,  Itbi } from './calculaTaxas.class.js';
 import { exibeResultado } from './exibeResultado.class.js';
 import { limites, camposValidados } from './erro.class.js';
 
-export function $(dom) {
-    return document.querySelector(dom)
-}
+const compraEVenda = document.querySelector("#compraEVenda") 
+const financiamento = document.querySelector("#financiamento")
+const selectBanco = document.querySelector("#selectBanco")
+const selectCidade = document.querySelector("#selectCidade")
+const selectEnquadramento = document.querySelector("#selectEnquadramento")
+const selectAgencia = document.querySelector("#selectAgencia")
+const enquadramento = document.querySelector("#enquadramento")
+const agencia = document.querySelector("#agencia")
+const botaoCalcular = document.querySelector("#botaoCalcular")
+const botaoVerifica = document.querySelector("#botaoVerifica")
 
-const compraEVenda = $("#compraEVenda")
-const financiamento = $("#financiamento")
-const selectBanco = $("#selectBanco")
-const selectCidade = $("#selectCidade")
-const selectEnquadramento = $("#selectEnquadramento")
-const selectAgencia = $("#selectAgencia")
-const select = document.querySelectorAll(".select")
-const enquadramento = $("#enquadramento")
-const agencia = $("#agencia")
-const botaoCalcular = $("#botaoCalcular")
-const botaoVerifica = $("#botaoVerifica")
+compraEVenda.addEventListener('change', () =>{
+    limites.limiteMCMV.callBack(selectEnquadramento.value, compraEVenda.valueAsNumber, selectCidade.value)
+    try {
+        limites.limiteCompra.verifica(compraEVenda.valueAsNumber)
+    } catch (error) {
+        console.log(error.message) 
+    }
+});
 
+financiamento.addEventListener('change', () =>{
+    try {
+        limites.limiteFinanciamento.verifica(compraEVenda.valueAsNumber, financiamento.valueAsNumber)
+    } catch (error) {
+        console.log(error.message)
+    }
+});
 
+selectBanco.addEventListener('change', () =>{
 
-select.forEach( (elemento)=>{
-    elemento.addEventListener('change', ()=>{
+    camposValidados.validaCampoSelect(selectBanco)
 
-        if(elemento == compraEVenda){
-            try {
-                limites.limiteCompra.verifica(compraEVenda.valueAsNumber)
-            } catch (error) {
-                console.log(error.message)
-                
-            }
-        }
+    if(selectBanco.value == "caixa" || selectBanco.value == "bancoBrasil" ){
+        enquadramento.classList.remove("display-none")
 
-        if(elemento == financiamento){
-           try {
-            limites.limiteFinanciamento.verifica(compraEVenda.valueAsNumber, financiamento.valueAsNumber)
-           } catch (error) {
-            camposValidados.desvalida('financiamento')
-            console.log(error.message)
-            
-           }
-        }
+        selectBanco.value == "caixa"? agencia.classList.remove("display-none"): agencia.classList.add("display-none")
+    }else{
+        enquadramento.classList.add("display-none")
+        agencia.classList.add("display-none")
+    }
+});
 
-        if(elemento == selectBanco){
+selectCidade.addEventListener('change', () =>{
+    limites.limiteMCMV.callBack(selectEnquadramento.value, compraEVenda.valueAsNumber, selectCidade.value)
 
-            if(elemento.value == 'null'){
-                camposValidados.desvalida('banco')
-            }else{
-                camposValidados.valida('banco') 
-            }
+    camposValidados.validaCampoSelect(selectCidade)
+});
 
-            if(elemento.value == "caixa" || elemento.value == "bancoBrasil" ){
-                enquadramento.classList.remove("display-none")
+selectEnquadramento.addEventListener('change', () =>{
+    limites.limiteMCMV.callBack(selectEnquadramento.value, compraEVenda.valueAsNumber, selectCidade.value)
+    
+});
 
-                elemento.value == "caixa"? agencia.classList.remove("display-none"): agencia.classList.add("display-none")
-            }else{
-                enquadramento.classList.add("display-none")
-                agencia.classList.add("display-none")
-            }
-        }
-
-         if(elemento == selectEnquadramento || elemento == compraEVenda || elemento == selectCidade){
-            if(selectEnquadramento.value == "mcmv"){
-                try {
-                    limites.limiteMCMV.verifica(compraEVenda.valueAsNumber, selectCidade.value) 
-                } catch (Error) {
-                    console.log(Error.message)
-                }
-            }
-
-        }
-
-
-        if(elemento == selectCidade){
-            if(elemento.value == 'null'){
-                console.log(elemento.value)
-                camposValidados.desvalida('cidade')
-                
-            }else{
-                camposValidados.valida('cidade')
-
-            }
-        }
-
-        if(elemento == selectAgencia){
-            if(elemento.value == 'null'){
-                console.log("Deu ruim")
-                camposValidados.desvalida('agencia')
-                
-            }else{
-                console.log("Deu bom")
-                camposValidados.valida('agencia')
-            }
-        }
-    })
-})
-
-
+selectAgencia.addEventListener('change', () =>{
+    camposValidados.validaCampoSelect(selectAgencia)
+});
 
 /* Funcao principal*/
 botaoCalcular.addEventListener('click', () =>{
-    const dado = new Dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value, selectAgencia.value)
-    const taxa = new Taxas()
-
-    calculaCartorio(dado, taxa)
-    Itbi.calculaItbi(dado, taxa)
-    TaxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
-    exibeResultado(taxa)
-
     
+    if(camposValidados.verifica()){
+        const dado = new Dados(compraEVenda.valueAsNumber, financiamento.valueAsNumber, selectBanco.value, selectCidade.value, selectEnquadramento.value, selectAgencia.value)
+        const taxa = new Taxas()
+        calculaCartorio(dado, taxa)
+        Itbi.calculaItbi(dado, taxa)
+        TaxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
+        exibeResultado(taxa)
+    }    
 });
 
 botaoVerifica.addEventListener('click', ()=>{
