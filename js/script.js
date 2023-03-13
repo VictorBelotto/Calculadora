@@ -24,32 +24,31 @@ const botaoVerifica = $("#botaoVerifica")
 select.forEach( (elemento)=>{
     elemento.addEventListener('change', ()=>{
 
-        if(elemento.id == "compraEVenda"){
+        if(elemento == compraEVenda){
             try {
                 limites.limiteCompra.verifica(compraEVenda.valueAsNumber)
-                camposValidados.compra = true
             } catch (error) {
-                console.log(error)
+                console.log(error.message)
                 
             }
         }
 
-        if(elemento.id == "financiamento"){
+        if(elemento == financiamento){
            try {
             limites.limiteFinanciamento.verifica(compraEVenda.valueAsNumber, financiamento.valueAsNumber)
-            camposValidados.financiamento = true
-
            } catch (error) {
-            console.log(error)
-            camposValidados.financiamento = false
+            camposValidados.desvalida('financiamento')
+            console.log(error.message)
+            
            }
         }
 
-        if(elemento.id == "selectBanco"){
-            if(elemento.id != null){
-                camposValidados.banco = true
+        if(elemento == selectBanco){
+
+            if(elemento.value == 'null'){
+                camposValidados.desvalida('banco')
             }else{
-                camposValidados.banco = false
+                camposValidados.valida('banco') 
             }
 
             if(elemento.value == "caixa" || elemento.value == "bancoBrasil" ){
@@ -62,11 +61,38 @@ select.forEach( (elemento)=>{
             }
         }
 
-         if(elemento.id == "selectEnquadramento" || elemento.id == "compraEVenda" || elemento.id == "selectCidade"){
+         if(elemento == selectEnquadramento || elemento == compraEVenda || elemento == selectCidade){
             if(selectEnquadramento.value == "mcmv"){
-                limites.limiteMCMV.verifica(compraEVenda.valueAsNumber, selectCidade.value)
+                try {
+                    limites.limiteMCMV.verifica(compraEVenda.valueAsNumber, selectCidade.value) 
+                } catch (Error) {
+                    console.log(Error.message)
+                }
             }
 
+        }
+
+
+        if(elemento == selectCidade){
+            if(elemento.value == 'null'){
+                console.log(elemento.value)
+                camposValidados.desvalida('cidade')
+                
+            }else{
+                camposValidados.valida('cidade')
+
+            }
+        }
+
+        if(elemento == selectAgencia){
+            if(elemento.value == 'null'){
+                console.log("Deu ruim")
+                camposValidados.desvalida('agencia')
+                
+            }else{
+                console.log("Deu bom")
+                camposValidados.valida('agencia')
+            }
         }
     })
 })
@@ -81,7 +107,6 @@ botaoCalcular.addEventListener('click', () =>{
     calculaCartorio(dado, taxa)
     Itbi.calculaItbi(dado, taxa)
     TaxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
-
     exibeResultado(taxa)
 
     
