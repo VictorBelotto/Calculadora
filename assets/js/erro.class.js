@@ -1,6 +1,22 @@
 import { modificaDinheiroReal } from "./exibeResultado.class.js"
 
 
+export class ArmazenaErros{
+  static  erro 
+  static  camposInvalidos
+
+  static adicionaErro(referencia, erro){
+    this[referencia] = erro 
+  }  
+
+  static removeErro(){
+    this.erro = undefined
+  }
+
+}
+
+
+
 export class camposValidados  {
   static  compra =  false
   static  financiamento =  false
@@ -11,7 +27,6 @@ export class camposValidados  {
 
     static valida(campo){
       this[campo] = true
-      
     }
 
     static desvalida(campo){
@@ -26,6 +41,7 @@ export class camposValidados  {
       static verifica(){
           const valoresValidos = Object.values(camposValidados);
           if (valoresValidos.every(valor => valor)) {
+              ArmazenaErros.removeErro()
               console.log("Todos os campos estão validados.");
               return true
             } else {
@@ -35,7 +51,7 @@ export class camposValidados  {
                   camposInvalidos.push(Object.keys(camposValidados)[i]);
                 }
               }
-              console.log(`Os campos (${camposInvalidos.join("), (")}) não foram validados.`);
+              ArmazenaErros.adicionaErro('camposInvalidos',`Os campos (${camposInvalidos.join("), (")}) não foram preenchidos.`);
               return false
             }
 
@@ -54,7 +70,8 @@ static limiteCompra = class {
 
     static erroCompra() {
       camposValidados.desvalida('compra')
-      throw new Error(`Valor de Compra menor que o minimo : ${this.compraMinima}`);
+      ArmazenaErros.adicionaErro('erro', `Valor de Compra menor que o minimo : ${modificaDinheiroReal(this.compraMinima)}`)
+      throw new Error(`Valor de Compra menor que o minimo : ${modificaDinheiroReal(this.compraMinima)}`);
     }
 
 };
@@ -69,7 +86,8 @@ static limiteFinanciamento = class{
 
     static erroFinanciamento(limite){
       camposValidados.desvalida('financiamento')
-      throw new Error(`Financiamento maior que 80% : ${limite}`)
+      ArmazenaErros.adicionaErro('erro',`Financiamento maior que 80% : ${modificaDinheiroReal(limite)}`)
+      throw new Error(`Financiamento maior que 80% : ${modificaDinheiroReal(limite)}`)
     }
 }
 
@@ -87,7 +105,8 @@ static limiteMCMV = class {
     
     static  erroMcmv(cidade){
       camposValidados.desvalida('enquadramento')
-      throw new Error(`Compra e venda maximo da cidade de: ${cidade.toUpperCase()} é : ${modificaDinheiroReal(this[cidade])}`)
+      ArmazenaErros.adicionaErro('erro',`Compra e venda maximo da cidade de: ${cidade.toUpperCase()} é : ${modificaDinheiroReal(this[cidade])}`)
+      throw new Error(`Valor maximo para MCMV da cidade de: ${cidade.toUpperCase()} é : ${modificaDinheiroReal(this[cidade])}`)
     }
 
 

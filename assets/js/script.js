@@ -1,7 +1,7 @@
 import {Dados, Taxas } from './referencias.class.js';
 import { calculaCartorio, TaxaAvista,  Itbi } from './calculaTaxas.class.js';
-import { exibeResultado } from './exibeResultado.class.js';
-import { limites, camposValidados } from './erro.class.js';
+import { exibeErros, exibeResultado } from './exibeResultado.class.js';
+import { limites, camposValidados, ArmazenaErros } from './erro.class.js';
 
 const compraEVenda = document.querySelector("#compraEVenda") 
 const financiamento = document.querySelector("#financiamento")
@@ -52,6 +52,7 @@ selectCidade.addEventListener('change', () =>{
 });
 
 selectEnquadramento.addEventListener('change', () =>{
+    camposValidados.validaCampoSelect(selectEnquadramento)
     limites.limiteMCMV.callBack(selectEnquadramento.value, compraEVenda.valueAsNumber, selectCidade.value)
     
 });
@@ -70,13 +71,13 @@ botaoCalcular.addEventListener('click', () =>{
         Itbi.calculaItbi(dado, taxa)
         TaxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
         exibeResultado(taxa)
-    }    
+    }else{
+        camposValidados.verifica()
+        exibeErros(ArmazenaErros.camposInvalidos)
+        ArmazenaErros.erro == undefined? console.log("Zero erro") : exibeErros(ArmazenaErros.erro)
+    }
 });
 
-botaoVerifica.addEventListener('click', ()=>{
-    camposValidados.verifica()
-    
-})
 
 
 

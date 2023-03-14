@@ -20,6 +20,15 @@ export function exibeResultado(taxa){
     
 }
 
+export function exibeErros(erro){
+   outputDados.firstChild.remove()
+   outputDados.classList.remove("display-none")
+
+   createUl()
+
+   createLi(erro)
+}
+
  function createUl(){
     let ul = document.createElement("ul")
     ul.classList.add("lista")
