@@ -8,77 +8,66 @@
     <title>Calculadora</title>
 </head>
 <body>
-    <header><h1>Calculadora para Documentação</h1></header>
+   
 
     <main>
+        <header><h1>Calculadora para Documentação</h1></header>
         <section id="inputDados">
-            <table>
-                <tr>
-                    <td>Compra e venda</td>
-                    <td><input  type="number" name="compraEVenda" id="compraEVenda" autofocus placeholder="Digite o valor" class="select"></td>
-                </tr>
+            <div class="container-input">
+                <label for="compraEVenda">Compra e venda</label>
+                <input type="number" name="compraEVenda" id="compraEVenda" autofocus placeholder="Digite o valor" class="select">
+            </div>
 
-                <tr>
-                    <td>Financiamento</td>
-                    <td><input  type="number" name="Financiamento" id="financiamento" placeholder="Digite o valor" class="select"></td>
-                </tr>
+            <div class="container-input">
+                <label for="financiamento">Financiamento</label>
+                <input type="number" name="Financiamento" id="financiamento" placeholder="Digite o valor" class="select">
+            </div>
 
-                <tr>
-                    <td>Selecione o Banco</td>
-                    <td>
-                        <select class="select" name="banco" id="selectBanco">
-                            <option value="null">Selecione</option>
-                            <option value="bancoBrasil">Banco do Brasil</option>
-                            <option value="caixa">Caixa</option>
-                            <option value="itau">Itaú</option>
-                       </select>
-                    </td>
-                </tr>
+            <div class="container-input">
+                <label for="selectBanco">Selecione o Banco</label>
+                <select class="select" name="banco" id="selectBanco">
+                    <option value="null">Selecione</option>
+                    <option value="bancoBrasil">Banco do Brasil</option>
+                    <option value="caixa">Caixa</option>
+                    <option value="itau">Itaú</option>
+                </select>
+            </div>
 
-                <tr>
-                    <td>Selecione a Cidade</td>
-                    <td>
-                        <select class="select" name="cidade" id="selectCidade">
-                            <option value="null">Selecione</option>
-                            <option value="campinas">Campinas</option>
-                            <option value="guarulhos">Guarulhos</option>
-                        </select>
-                    </td>
-                </tr>
+            <div class="container-input">
+                <label for="selectCidade">Selecione a Cidade</label>
+                <select class="select" name="cidade" id="selectCidade">
+                    <option value="null">Selecione</option>
+                    <option value="campinas">Campinas</option>
+                    <option value="guarulhos">Guarulhos</option>
+                </select>
+            </div>
 
-                <tr id="enquadramento" class="display-none">
-                    <td>Selecione o Enquadramento</td>
-                    <td>
-                        <select class="select" name="enquadramento" id="selectEnquadramento">
-                            <option value="null">Selecione</option>
-                            <option value="proCotista">PRO COTISTA</option>
-                            <option value="mcmv">MCMV</option>
-                            <option value="sbpe">SBPE</option>
-                        </select>
-                    </td>
-                </tr>
+            <div class="container-input display-none" id="enquadramento">
+                <label for="selectEnquadramento">Selecione o Enquadramento</label>
+                <select class="select" name="enquadramento" id="selectEnquadramento">
+                    <option value="null">Selecione</option>
+                    <option value="proCotista">PRO COTISTA</option>
+                    <option value="mcmv">MCMV</option>
+                    <option value="sbpe">SBPE</option>
+                </select>
+            </div>
 
-                <tr id="agencia" class="display-none">
-                    <td>Selecione o Agencia</td>
-                    <td>
-                        <select class="select" name="agencia" id="selectAgencia">
-                            <option value="null">Selecione</option>
-                            <option value="conceicao">Conceição</option>
-                            <option value="bonsucesso">Bonsucesso</option>
-                          
-                        </select>
-                    </td>
-                </tr>
+            <div class="container-input display-none" id="agencia">
+                <label for="selectAgencia">Selecione o Agencia</label>
+                <select class="select" name="agencia" id="selectAgencia">
+                    <option value="null">Selecione</option>
+                    <option value="conceicao">Conceição</option>
+                    <option value="bonsucesso">Bonsucesso</option>
+                </select>
+            </div>
 
-            </table>
-
-            <button id="botaoCalcular"  >Calcular</button>
+            <button id="botaoCalcular">Calcular</button>
         </section>
 
         <section id="outputDados" class="display-none">
         </section>
 
-       
         <script type="module" src="assets/js/script.js"></script>
+    </main>
 </body>
 </html>
