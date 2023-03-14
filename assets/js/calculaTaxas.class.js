@@ -64,7 +64,6 @@ export class TaxaAvista {
 }
 
 
-
 class RelacionamentoAgencia{
 
    static agencias = {

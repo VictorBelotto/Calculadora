@@ -16,7 +16,6 @@ export class ArmazenaErros{
 }
 
 
-
 export class camposValidados  {
   static  compra =  false
   static  financiamento =  false
@@ -34,7 +33,7 @@ export class camposValidados  {
     }
 
     static validaCampoSelect(campo){
-      campo.value == 'null'? camposValidados.desvalida(campo.name) : camposValidados.valida(campo.name) 
+      campo.value == 'null'? camposValidados.desvalida(campo.name) : camposValidados.valida(campo.name), ArmazenaErros.removeErro() 
 
     }
 
@@ -65,7 +64,7 @@ static limiteCompra = class {
     static compraMinima = 62500;
 
     static verifica(valorCompra) {
-      valorCompra < this.compraMinima ? this.erroCompra(): camposValidados.valida('compra')
+      valorCompra < this.compraMinima || isNaN(valorCompra) ? this.erroCompra(): camposValidados.valida('compra'), ArmazenaErros.removeErro()
     }
 
     static erroCompra() {
@@ -81,7 +80,7 @@ static limiteFinanciamento = class{
 
     static verifica(compra,financiamento){
       let limite = compra * this.limitePadrao
-      financiamento > limite ? this.erroFinanciamento(limite) : camposValidados.valida('financiamento')
+      financiamento > limite ? this.erroFinanciamento(limite) : camposValidados.valida('financiamento'), ArmazenaErros.removeErro()
     }
 
     static erroFinanciamento(limite){
@@ -98,7 +97,7 @@ static limiteMCMV = class {
 
     static verifica(enquadramento, compraVenda, cidade){
       if(enquadramento == "mcmv"){
-        compraVenda > this[cidade] ? this.erroMcmv(cidade) : camposValidados.valida('enquadramento')
+        compraVenda > this[cidade] ? this.erroMcmv(cidade) : camposValidados.valida('enquadramento'), ArmazenaErros.removeErro()
       }
      
     }

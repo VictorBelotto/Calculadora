@@ -72,10 +72,14 @@ botaoCalcular.addEventListener('click', () =>{
         TaxaAvista.calculaTaxaAvista(dado.banco,dado, taxa)
         exibeResultado(taxa)
     }else{
+        ArmazenaErros.erro != undefined? exibeErros(ArmazenaErros.erro) : console.log("Zero erro")
+        
+       if(ArmazenaErros.erro == undefined){
         camposValidados.verifica()
         exibeErros(ArmazenaErros.camposInvalidos)
-        ArmazenaErros.erro == undefined? console.log("Zero erro") : exibeErros(ArmazenaErros.erro)
+       }
     }
+
 });
 
 
