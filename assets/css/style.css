@@ -1,144 +1,90 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    background-color: #333;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  header {
-    text-align: center;
-    padding: 1rem;
-    background-color: #222;
-    margin-bottom: 1rem;
-  }
-
-  header h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-  }
-
-  th,
-  td {
-    padding: 0.5rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-
-  th {
-    background-color: #222;
-    color: #fff;
-    text-transform: uppercase;
-  }
-
-  select {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border: none;
-    background-color: #444;
-    color: #fff;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
- 
-  input {
-    width: 100%;
-    background-color: #333333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  input::placeholder {
-    color: #bbbbbb;
-  }
-
-  input:invalid {
-    border: 2px solid red;
-  }
-
-  #botaoCalcular {
-    background-color: #0077CC;
-    color: white;
-    font-size: 18px;
-    padding: 16px 32px;
-    width: 100%;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+body {
+  background-color: #121212;
+  color: #fff;
+  font-family: sans-serif;
 }
 
-#botaoCalcular:disabled {
-  background-color: red;
-  cursor: not-allowed;
+header {
+  text-align: center;
+  margin: 2rem 0;
 }
 
-#botaoCalcular:not(:disabled):hover {
-    background-color: #005EA8;
+#inputDados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 0;
+  background-color: #292929;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-#botaoCalcular:not(:disabled):active {
-    animation: clickEffect 0.4s ease-out;
+#inputDados table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
 }
 
-@keyframes clickEffect {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1.2);
-        opacity: 0;
-    }
+#inputDados table td {
+  padding: 1rem;
+  text-align: center;
 }
 
-  #outputDados{
-    margin-top: 1rem;
-    background-color: #444;
-    padding: 1rem;
-    border-radius: 0.25rem;
-    
-  }
+#inputDados table tr:nth-child(even) {
+  background-color: #1f1f1f;
+}
 
- 
+#inputDados table tr:hover {
+  background-color: #444;
+}
 
- 
- 
- .display-none{
-  display: none;
- } 
+#inputDados .select {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: #1f1f1f;
+  color: #fff;
+  width: 100%;
+  margin-top: 0.5rem;
+}
 
-  @media screen and (max-width: 767px) {
-    main {
-      padding: 0.5rem;
-    }
+#inputDados button {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: #6f42c1;
+  color: #fff;
+  width: 100%;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
 
-    select {
-      font-size: 0.9rem;
-    }
+#inputDados button:hover {
+  background-color: #5a32a3;
+}
+
+#outputDados {
+  margin: 2rem auto;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: #292929;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+#outputDados ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#outputDados ul li {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+#outputDados .erro {
+  color: #ff4136;
 }
