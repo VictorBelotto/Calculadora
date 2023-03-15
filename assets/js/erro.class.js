@@ -76,17 +76,25 @@ static limiteCompra = class {
 };
 
 static limiteFinanciamento = class{
-    static limitePadrao = 0.8             
+    static limitePadrao = 0.8   
+    static financiamentoMin = 50000          
 
     static verifica(compra,financiamento){
       let limite = compra * this.limitePadrao
       financiamento > limite ? this.erroFinanciamento(limite) : camposValidados.valida('financiamento'), ArmazenaErros.removeErro()
+      financiamento < this.financiamentoMin? this.erroFinanciamentoMin(this.financiamentoMin): camposValidados.valida('financiamento'), ArmazenaErros.removeErro()
     }
 
     static erroFinanciamento(limite){
       camposValidados.desvalida('financiamento')
       ArmazenaErros.adicionaErro('erro',`Financiamento maior que 80% : ${modificaDinheiroReal(limite)}`)
       throw new Error(`Financiamento maior que 80% : ${modificaDinheiroReal(limite)}`)
+    }
+
+    static erroFinanciamentoMin(financiamentoMin){
+      camposValidados.desvalida('financiamento')
+      ArmazenaErros.adicionaErro('erro',`Financiamento menor que o minimo : ${modificaDinheiroReal(financiamentoMin)}`)
+      throw new Error(`Financiamento menor que o minimo : ${modificaDinheiroReal(financiamentoMin)}`)
     }
 }
 
