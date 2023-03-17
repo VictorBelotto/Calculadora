@@ -25,15 +25,52 @@ export class camposValidados  {
   static  agencia =  false
 
     static valida(campo){
-      this[campo] = true
+    let campos = campo
+
+      if(Array.isArray(campos)){
+        for(let i = 0; i < campos.length; i++){
+          this[campos[i]] = true
+        }
+      }else{
+        this[campo] = true
+      }
     }
 
     static desvalida(campo){
-      this[campo] = false
+      let campos = campo
+
+      if(Array.isArray(campos)){
+        for(let i = 0; i < campos.length; i++){
+          this[campos[i]] = false
+        }
+      }else{
+        this[campo] = false
+      }
     }
 
     static validaCampoSelect(campo){
-      campo.value == 'null'? camposValidados.desvalida(campo.name) : camposValidados.valida(campo.name), ArmazenaErros.removeErro() 
+
+      campo.value == 'null'? camposValidados.desvalida(campo.name) : camposValidados.valida(campo.name), ArmazenaErros.removeErro()
+
+     if(campo.value != 'caixa'){
+
+      if(campo.value == "itau"){
+        camposValidados.valida(['enquadramento', 'agencia'])
+        ArmazenaErros.removeErro()
+      }
+
+      if(campo.value == 'bancoBrasil'){
+        camposValidados.valida('agencia')
+        ArmazenaErros.removeErro()
+      }
+      
+      
+     }
+     else{
+      camposValidados.desvalida('agencia')
+    }
+
+       
 
     }
 

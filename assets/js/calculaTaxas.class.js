@@ -35,28 +35,36 @@ export class Itbi {
 
 
 export class TaxaAvista {
-    static bancoBrasil = 1370
-    static itau = 1950
+    static bancoBrasil =   {
+        mcmv: 0.015,
+        proCotista: 0.015,
+        sbpe: 1000
+    }   
+
     static caixa = {
         mcmv: 0.015,
         proCotista: 0.015,
         sbpe: 1000
     }
+    static itau = 1950
 
    static calculaTaxaAvista(banco, dado, taxa){
-        if(banco == "caixa"){
+        if(banco == "caixa" || banco == 'bancoBrasil'){
+            console.log(dado.enquadramento)
             let enquadramento = dado.enquadramento
 
-            if(enquadramento != "sbpe"){
-                    taxa.vistoria = dado.financiamento * this.caixa[enquadramento]
-                    RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
+            if(enquadramento == "proCotista" || enquadramento == 'mcmv'){
+                console.log(this[banco][enquadramento])
+                    taxa.vistoria = dado.financiamento * this[banco][enquadramento]
+                    banco == 'caixa'? RelacionamentoAgencia.calculaRelacionamento(dado, taxa) : false
             }   
-                else if(enquadramento == "sbpe") {
-                    taxa.vistoria = this.caixa.sbpe
-                    RelacionamentoAgencia.calculaRelacionamento(dado, taxa)
-                     }
+                if(enquadramento == "sbpe") {
+                    taxa.vistoria = this[banco].sbpe
+                    banco == 'caixa'? RelacionamentoAgencia.calculaRelacionamento(dado, taxa) : false
+                    }
         }
             else{
+                console.log('ruinm')
             taxa.vistoria = this[banco]
             }
     }
