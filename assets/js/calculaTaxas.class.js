@@ -49,7 +49,7 @@ export class TaxaAvista {
     static itau = 1950
 
    static calculaTaxaAvista(banco, dado, taxa){
-        if(banco == "caixa" || banco == 'bancoBrasil'){
+        if(banco == "caixa" || banco == 'bancoBrasil'){ 
             let enquadramento = dado.enquadramento
 
             if(enquadramento == "proCotista" || enquadramento == 'mcmv'){
