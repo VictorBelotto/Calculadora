@@ -38,7 +38,7 @@ export class TaxaAvista {
     static bancoBrasil =   {
         mcmv: 0.015,
         proCotista: 0.015,
-        sbpe: 1000
+        sbpe: 1370
     }   
 
     static caixa = {
@@ -50,12 +50,10 @@ export class TaxaAvista {
 
    static calculaTaxaAvista(banco, dado, taxa){
         if(banco == "caixa" || banco == 'bancoBrasil'){
-            console.log(dado.enquadramento)
             let enquadramento = dado.enquadramento
 
             if(enquadramento == "proCotista" || enquadramento == 'mcmv'){
-                console.log(this[banco][enquadramento])
-                    taxa.vistoria = dado.financiamento * this[banco][enquadramento]
+                    taxa.vistoria = parseFloat(dado.financiamento * this[banco][enquadramento])
                     banco == 'caixa'? RelacionamentoAgencia.calculaRelacionamento(dado, taxa) : false
             }   
                 if(enquadramento == "sbpe") {
