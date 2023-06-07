@@ -74,14 +74,19 @@ class RelacionamentoAgencia{
 
    static agencias = {
 
-     conceicao: {
+     campinas: {
         mcmv: 1500,
         proCotista: 1500,
-        sbpe: 2000
+        sbpe: 0.01
     },
 
      bonsucesso: {
         mcmv: 500,
+        proCotista: 500,
+        sbpe: 850
+    },
+     nazare: {
+        mcmv: 1000,
         proCotista: 500,
         sbpe: 850
     }
@@ -91,7 +96,11 @@ class RelacionamentoAgencia{
     static calculaRelacionamento( dado, taxa){
         let agencia = dado.agencia
         let enquadramento = dado.enquadramento
-        taxa.relacionamento = this.agencias[agencia][enquadramento]
+        
+        enquadramento == "sbpe" && agencia == "campinas"? taxa.relacionamento = dado.financiamento * this.agencias[agencia][enquadramento] : 
+            taxa.relacionamento = this.agencias[agencia][enquadramento]
+
+        
     }
     
 }
